@@ -1,6 +1,7 @@
 # LFMM2 ANALYSIS
 library(raster)
 library(LEA)
+library(scales)
 source("lib.R", keep.source = TRUE)
 
 
