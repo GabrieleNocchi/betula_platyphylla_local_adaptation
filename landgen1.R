@@ -1,4 +1,6 @@
 # LFMM2 ANALYSIS
+library(raster)
+library(LEA)
 source("lib.R", keep.source = TRUE)
 
 
