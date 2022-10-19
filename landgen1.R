@@ -56,8 +56,7 @@ obj.snmf <- LEA::snmf(Y, K = 1:10, entropy = T, ploidy = 2,
 # let’inspect the values of the cross-entropy criterion for each K:
 plot(obj.snmf, pch = 16, col = "blue")
 
-# According to both the Cattell’s rule and the cross-validation score,
-# there seems to exist 3 latent factors in the data
+
 K <- 3
 
 barplot(t(Q(obj.snmf, K = K)),
@@ -149,7 +148,7 @@ qvalues$CHR <- map$V1
 qvalues$BP <- map$V4
 head(qvalues)
 
-# Let's decide a q-value cut-off of 10%
+# Let's decide a q-value cut-off of 1%
 qcut <- 0.01
 # LFMM results
 source("fn-landgen1.R", echo = F, keep.source = TRUE)
