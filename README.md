@@ -1,4 +1,4 @@
-# betula-platyphylla-local-adaptation
+# betula_platyphylla_local_adaptation
 Code for:
 
 
