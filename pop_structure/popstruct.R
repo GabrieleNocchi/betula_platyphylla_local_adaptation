@@ -1,6 +1,5 @@
 as.data.frame(list.files())
 
-
 # Source libraries and functions ------------------------------------------
 source("lib.R", keep.source = TRUE)
 source("fn-popstruct-win.R", echo = F, keep.source = TRUE) # for Windows
@@ -8,7 +7,6 @@ source("fn-popstruct-win.R", echo = F, keep.source = TRUE) # for Windows
 # plotrix -----------------------------------------------------------------
 
 library(plotrix)
-
 
 # Molecular dataset -------------------------------------------------------
 # Import genomic file
@@ -29,13 +27,7 @@ nrow(map)
 coo.qc <- read.table("coordinates.txt",
                   h = T, stringsAsFactors = F)
 
-
-
-
-
 x = "birch"
-
-
 # Discriminant analysis of principal components (DAPC) --------------------
 
 # Working dataset for DAPC
@@ -86,14 +78,6 @@ adegenet::scatter.dapc(
   bg="white", 
   legend=T, cleg = 0.6, solid=.4
   )
-
-
-
-
-
-
-
-
 
 #########################################
 # Spatial distribution of DAPC groups 
@@ -169,13 +153,7 @@ points(coo.qc[, 2:3], pch = coo.qc$pch,
 box(col = "gray")
 
 
-
-
-
-
-
 # Fst among DAPC clusters -------------------------------------------------
-
 SNPRelate::snpgdsPED2GDS(
   ped.fn = paste(x, ".ped", sep = ""), 
   map.fn = paste(x, ".map", sep = ""),
@@ -209,13 +187,6 @@ fst.res <- fst.res[order(fst.res$Fst, decreasing = T), ]
 fst.res
 
 
-
-
-
-
-
-
-
 # tess3r ------------------------------------------------------------------
 
 # Input file for tess3r
@@ -241,7 +212,6 @@ plot(tess3.obj, pch = 19, col = "blue",
                   "number of ancestral populations", sep = "\n"),
      xlab = "Number of ancestral populations", 
      ylab = "Cross-validation score")
-
 
 
 # Let's combine tess3r results with DAPC results 
@@ -297,12 +267,6 @@ coo.qc.ord <- K4[, c(6, 7)]
 K4 <- K4[, -c(5:7)]
 
 
-
-
-
-
-
-
 ###############
 # We create a qlist object for the pophelper package
 qlist <- list(K2, K3, K4)
@@ -323,10 +287,6 @@ tess3r_bar <- pophelper::plotQ(
   quiet = T, showyaxis = T, panelspacer = 0.25, panelratio = c(3, 1)
   )
 grid.arrange(tess3r_bar$plot[[1]])
-
-
-
-
 
 
 # Interpolation map K=3
