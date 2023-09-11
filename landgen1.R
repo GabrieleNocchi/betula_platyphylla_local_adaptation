@@ -3,34 +3,25 @@ source("lib.R", keep.source = TRUE)
 
 
 # Landscape genomics with LFMM --------------------------------------------
+
 # Latent factor mixed models (LFMM)
 # x must be the prefix of the raw file
 # The raw format file can be generated with plink (--recodeA) from map/ped files
+
 x = "birch"
 library(data.table)
 # Molecular input file
-Y <- data.table::fread(paste(x, ".raw", sep = ""),
-                       na.strings = "NA", header = T)
+Y <- data.table::fread(paste(x, ".raw", sep = ""), na.strings = "NA", header = T)
 Y <- Y[, -c(1:6)]
-fwrite(Y, paste(x, ".lfmm", sep = ""), col.names = F,
-            row.names = F, sep = "\t", na = "9")
+fwrite(Y, paste(x, ".lfmm", sep = ""), col.names = F, row.names = F, sep = "\t", na = "9")
 Y <- LEA::lfmm2geno(paste(x, ".lfmm", sep = ""))
 
-
-
-
-
-# Environmental input file provided
+# Environmental input file 
 X <- read.table("environmental_data.txt", h = T, stringsAsFactors = F)
 X <- as.matrix(X[, c(4:14)])
 
-
-
-
 # PCA
 pc <- LEA::pca(paste(x, ".lfmm", sep = ""), scale = TRUE)
-
-
 
 # Tracy-Widom tests on all eigenvalues to identify significant components
 tw <- LEA::tracy.widom(pc)
@@ -42,17 +33,12 @@ plot(tw$eigenvalues, main = "Scree plot",
      ylab = "Eigenvalues", xlab = "PCs", t = "b")
 
 
-
-
 # sNMF (sparse nonnegative matrix factorization)
 obj.snmf <- LEA::snmf(Y, K = 1:10, entropy = T, ploidy = 2,
                       project = "new")
 
-
-
 # let’inspect the values of the cross-entropy criterion for each K:
 plot(obj.snmf, pch = 16, col = "blue")
-
 
 K <- 3
 
@@ -66,9 +52,6 @@ box(lwd=2)
 Y <- data.table::fread(paste(x, ".lfmm",
                              sep = ""), header = F)
 
-
-
-
 # Running LFMM
 mod.lfmm <- lfmm::lfmm_ridge(Y = Y,
                              X = X,
@@ -79,12 +62,9 @@ str(mod.lfmm)
 pv <- lfmm::lfmm_test(Y = Y, X = X, lfmm = mod.lfmm,
                       calibrate = "gif")
 
-
 pvalues <- pv$calibrated.pvalue
 dim(pvalues)
 head(pvalues)
-
-
 
 # P-value histograms per env. variables
 # Histograms of p-values
@@ -97,6 +77,7 @@ for (i in 1:ncol(pvalues)) {
        main = paste("Env. variable ", i, sep = ""),
        col = "darkgray", border = "darkgray")
 }
+
 # Q-Q plot
 qqplot(rexp(length(pvalues),
             rate = log(10)),
@@ -106,9 +87,7 @@ qqplot(rexp(length(pvalues),
        pch = 19, cex = 0.4)
 abline(0, 1)
 
-
 # False discovery rate control with q-values  -----------------------------
-
 pvalues_env1 <- pvalues[, 1]
 qobj <- qvalue::qvalue(pvalues_env1)
 hist(qobj)
@@ -136,8 +115,7 @@ for (i in 1:ncol(qvalues)) {
        col = "darkgray", border = "darkgray")
 }
 
-# Let's add SNP information (name, chromosome,
-# physical position)  -- use the map file --
+# Let's add SNP information (name, chromosome, physical position)  -- use the map file --
 map <- read.table(paste("birch", ".map", sep = ""))
 qvalues <- as.data.frame(qvalues)
 qvalues$SNP <- as.character(map$V2)
@@ -158,15 +136,10 @@ pvalues$SNP <- as.character(map$V2)
 pvalues$CHR <- map$V1
 pvalues$BP <- map$V4
 
-
-
 # Dataframe with ordered columns for Manhattan
 # plots
 manh <- pvalues[, c(12:14, 1:11)]
 head(manh)
-
-
-
 
 #### PLOT SINGLE ####
 par(mfrow = c(3, 1), oma = c(1, 1, 1, 1),
@@ -184,7 +157,6 @@ for (i in 4:ncol(manh)) {
     )
   box()
 }
-
 
 #### Plot Splitted ####
 png("results_1.png")
