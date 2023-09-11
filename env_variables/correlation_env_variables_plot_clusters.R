@@ -1,7 +1,5 @@
 source("lib.R", keep.source = TRUE)
 
-
-
 # Coordinates
 coo <- read.table("coordinates.txt", h = T, stringsAsFactors = F)
 
@@ -23,7 +21,6 @@ for (i in 1:nrow(env)) {
     )
   }
   
-
 myalt <- raster::getData("alt", country = "CHN", mask = FALSE)
 myslope <- raster::terrain(myalt, opt = "slope")
 myaspect <- raster::terrain(myalt, opt = "aspect")
@@ -116,11 +113,7 @@ plotrix::color.legend(150, 25, 155, 50, c(min(env[, 1]/10), max(env[, 1]/10)), m
 box(col="gray")						  
 
 
-
-
-
 # Managing redundant information in the environmental matrix --------------
-
 cor <- cor(env)
 
 windows()
@@ -190,14 +183,11 @@ corrplot::corrplot(
 
 
 # Plotting all clusters
-
 windows()
 par(mfrow = c(2,2),mar=c(1,1,1,5))
 
 
 # Cluster 1
-
-
 raster::plot(grid,
              col="white", border="white",
              ylim=c(25, 55), xlim=c(70,140),
@@ -232,9 +222,8 @@ plotrix::color.legend(150, 25, 155, 50, c(round(min(env.synt[, 1]), digits = 2),
 
 text(105,62, "temp. seasonality + mean temp. coldest quarter + \n min temp. coldest month + mean temp. driest quarter + \n temp. annual range + annual mean temp.", cex = 0.5)
 
+
 # Cluster 2
-
-
 raster::plot(grid,
              col="white", border="white",
              ylim=c(25, 55), xlim=c(70,140),
@@ -268,9 +257,8 @@ plotrix::color.legend(150, 25, 155, 50, c(round(min(env.synt[, 2]), digits = 2),
 
 text(105,62, "mean diurnal range", cex = 0.5)
 
+
 # Cluster 3
-
-
 raster::plot(grid,
              col="white", border="white",
              ylim=c(25, 55), xlim=c(70,140),
@@ -306,8 +294,6 @@ text(105,62, "isothermality + altitude", cex = 0.5)
 
 
 # Cluster 4
-
-
 raster::plot(grid,
              col="white", border="white",
              ylim=c(25, 55), xlim=c(70,140),
@@ -342,15 +328,13 @@ plotrix::color.legend(150, 25, 155, 50, c(round(min(env.synt[, 4]), digits = 2),
 
 text(105,62, "mean temp. warmest quarter + mean temp. wettest quarter + \n max temp. warmest month", cex = 0.5)
 
+
 # Second page
-
-
 windows()
 par(mfrow = c(2,2),mar=c(1,1,1,5))
 
+
 # Cluster 5
-
-
 raster::plot(grid,
              col="white", border="white",
              ylim=c(25, 55), xlim=c(70,140),
@@ -384,9 +368,8 @@ plotrix::color.legend(150, 25, 155, 50, c(round(min(env.synt[, 5]), digits = 2),
 
 text(105,62, "prec. warmest quarter + prec. wettest quarter + \n annual prec. + prec. wettest month", cex = 0.5)
 
+
 # Cluster 6
-
-
 raster::plot(grid,
              col="white", border="white",
              ylim=c(25, 55), xlim=c(70,140),
@@ -421,9 +404,8 @@ plotrix::color.legend(150, 25, 155, 50, c(round(min(env.synt[, 6]), digits = 2),
 
 text(105,62, "prec. driest quarter + prec. coldest quarter + \n prec. driest month ", cex = 0.5)
 
+
 # Cluster 7
-
-
 raster::plot(grid,
              col="white", border="white",
              ylim=c(25, 55), xlim=c(70,140),
@@ -457,9 +439,8 @@ plotrix::color.legend(150, 25, 155, 50, c(round(min(env.synt[, 7]), digits = 2),
 
 text(105,62, "prec. seasonality", cex = 0.5)
 
+
 # Cluster 8
-
-
 raster::plot(grid,
              col="white", border="white",
              ylim=c(25, 55), xlim=c(70,140),
@@ -495,14 +476,11 @@ text(105,62, "slope + TRI + roughness", cex = 0.5)
 
 
 # Third page
-
-
 windows()
 par(mfrow = c(2,2),mar=c(1,1,1,5))
 
+
 # Cluster 9
-
-
 raster::plot(grid,
              col="white", border="white",
              ylim=c(25, 55), xlim=c(70,140),
@@ -536,9 +514,8 @@ plotrix::color.legend(150, 25, 155, 50, c(round(min(env.synt[, 9]), digits = 2),
 
 text(105,62, "aspect", cex = 0.5)
 
+
 # Cluster 10
-
-
 raster::plot(grid,
              col="white", border="white",
              ylim=c(25, 55), xlim=c(70,140),
@@ -573,9 +550,8 @@ plotrix::color.legend(150, 25, 155, 50, c(round(min(env.synt[, 10]), digits = 2)
 
 text(105,62, "TPI", cex = 0.5)
 
+
 # Cluster 11
-
-
 raster::plot(grid,
              col="white", border="white",
              ylim=c(25, 55), xlim=c(70,140),
