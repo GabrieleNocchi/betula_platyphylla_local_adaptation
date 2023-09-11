@@ -5,6 +5,7 @@ Code for:
 Nocchi, G., Wang, J., Yang, L., Ding, J., Gao, Y., Buggs, R. J., & Wang, N. (2023). Genomic signals of local adaptation and hybridization in Asian white birch. Molecular Ecology, 32 (3), 595-612.
 
 The script for the LFMM2 analysis is landgen1.R in the main directory. The repository also include scripts to download environmental variables from WorldClim and assess their correlation, as well as scripts to analyze the structure of the input data set before GEA analysis.
+Input provided in the directory data. Elevation raster and original map/ped files not provided due to size restriction. Input provided in LFMM format.
 
 
 The scripts for the RONA analysis are within the RONA directory:
